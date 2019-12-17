@@ -1,5 +1,9 @@
 import EventEmitter from 'events';
 
+/**
+ * Centralized Message system
+**/
+
 export const MessageHub = new EventEmitter();
 
 export enum EventType {

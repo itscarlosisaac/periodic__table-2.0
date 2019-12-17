@@ -3,7 +3,11 @@ import * as ReactDOM from "react-dom";
 
 import { PeriodicTable } from "./components/PeriodicTable";
 
+// import 'normalize.css';
+// TODO Add loader for normalize CSS
+
+
 ReactDOM.render(
-    <PeriodicTable compiler="TypeScript" framework="React" />,
+    <PeriodicTable/>,
     document.getElementById("app")
 );

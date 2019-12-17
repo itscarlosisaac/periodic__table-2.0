@@ -65,7 +65,7 @@ export class Toggle extends Component<any, any> {
     return (
       <Fragment>
         <Switch state={state} onClick={this.handleToggle}>
-          <span className={state ? 'slider on' : 'slider off'}></span>
+          <span className={state ? 'slider off' : 'slider on'}></span>
         </Switch>
       </Fragment>
     )

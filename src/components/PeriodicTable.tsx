@@ -1,11 +1,39 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
+import {Header} from './Header';
+import { MessageHub, EventType } from '../utils/MessageHub';
 
-export interface HelloProps { compiler: string; framework: string; }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the '{}' type.
-export class PeriodicTable extends Component<HelloProps> {
+enum Theme {
+    dark = 0,
+    light = 1
+}
+
+export class PeriodicTable extends Component<any, any> {
+    constructor(props: any){
+        super(props);
+        this.state = {
+            theme: 1,
+        }
+    }
+
+    componentWillMount() {
+      console.log(this.state)
+    }
+
+    componentDidMount() {
+      MessageHub.addListener(EventType.Toggle, this.handleThemeToggle);
+    }
+
+    handleThemeToggle = (data: any) => {
+        this.setState(() => ({ theme: data }));
+    }
+
     render() {
-        return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
+        const { theme } = this.state
+        return (
+            <Fragment>
+                <Header theme={theme} />
+            </Fragment>
+        )
     }
 }
