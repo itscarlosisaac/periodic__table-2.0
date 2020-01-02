@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { LogoLight } from './atoms/LogoLight';
-import { LogoDark } from './atoms/LogoDark';
-import { Toggle } from './atoms/Toggle';
+import { LogoLight } from '../atoms/LogoLight';
+import { LogoDark } from '../atoms/LogoDark';
+import { Toggle } from '../atoms/Toggle';
 import styled from 'styled-components';
 
 export interface HeaderProps {

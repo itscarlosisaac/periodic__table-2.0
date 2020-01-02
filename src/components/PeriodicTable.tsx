@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from "react";
-import {Header} from './Header';
+import { Header } from './molecules/Header';
+import { Table } from './molecules/Table';
 import { MessageHub, EventType } from '../utils/MessageHub';
 
 
@@ -12,7 +13,7 @@ export class PeriodicTable extends Component<any, any> {
     constructor(props: any){
         super(props);
         this.state = {
-            theme: 1,
+            theme: Theme.light,
         }
     }
 
@@ -24,7 +25,7 @@ export class PeriodicTable extends Component<any, any> {
       MessageHub.addListener(EventType.Toggle, this.handleThemeToggle);
     }
 
-    handleThemeToggle = (data: any) => {
+    handleThemeToggle = (data: number) => {
         this.setState(() => ({ theme: data }));
     }
 
@@ -33,6 +34,7 @@ export class PeriodicTable extends Component<any, any> {
         return (
             <Fragment>
                 <Header theme={theme} />
+                <Table theme={theme} />
             </Fragment>
         )
     }
