@@ -8,9 +8,16 @@
   "engines": {
     "node": "8.11.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itscarlosisaac/periodic__table-2.0"
+  },
+  "homepage": "https://itscarlosisaac.github.io/periodic-table",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js"
+    "build": "webpack --config webpack.config.prod.js",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d dist"
   },
   "pre-commit": [
     "prestart"
@@ -39,6 +46,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
+    "gh-pages": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.2.1",
