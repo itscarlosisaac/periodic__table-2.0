@@ -5,7 +5,7 @@ import { Toggle } from '../atoms/Toggle';
 import styled from 'styled-components';
 
 export interface HeaderProps {
-  theme: string;
+  theme: number;
 }
 
 const StyledHeader: any = styled.div`
@@ -19,14 +19,14 @@ const StyledHeader: any = styled.div`
   }
 `
 
-export class Header extends Component<HeaderProps, any> {
-  render() {
-      const { theme } = this.props
-      return (
-        <StyledHeader theme={theme}>
-          { theme ? <LogoDark/> : <LogoLight/>  }
-          <Toggle/>
-        </StyledHeader>
-      )
-  }
+const Header = ( props: HeaderProps ) => {
+  const { theme } = props;
+  return (
+    <StyledHeader theme={theme}>
+      { theme ? <LogoDark/> : <LogoLight/>  }
+      <Toggle/>
+    </StyledHeader>
+  )
 }
+
+export default Header;

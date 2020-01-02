@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import styled from 'styled-components';
+import ElementStack from '../atoms/ElementStack'
 
-import { Stack } from '../atoms/Stack'
 
 export interface TableProps {
-  theme: string;
+  theme: number;
 }
 
 const StyledTable: any = styled.div`
@@ -18,13 +18,14 @@ const StyledTable: any = styled.div`
   }
 `
 
-export class Table extends Component<TableProps, any> {
-  render() {
-      const { theme } = this.props
-      return (
-        <StyledTable theme={theme}>
-          <Stack></Stack>
-        </StyledTable>
-      )
-  }
+const Table = (props: TableProps) => {
+  const { theme } = props;
+
+  return (
+    <StyledTable theme={theme}>
+      <ElementStack></ElementStack>
+    </StyledTable>
+  );
 }
+
+export default Table;
