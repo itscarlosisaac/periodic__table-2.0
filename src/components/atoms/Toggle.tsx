@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { MessageHubControllers } from '../../utils/MessageHub';
 
 enum State {
-  on = 1,
-  off = 0
+  dark = 0,
+  light = 1,
 }
 
 const Switch: any = styled.div`
@@ -44,28 +44,27 @@ const Switch: any = styled.div`
     transform: translateX(10px);
   }
   `
-  // background: ${(props: any) => props.state ? 'red' : 'blue'}
 
 export class Toggle extends Component<any, any> {
   constructor( props: any ){
     super(props);
     this.state = {
-      state: State.on
+      toggleState: State.light
     }
   }
 
   handleToggle = () => {
-    const nextState = this.state.state == 1 ? State.off : State.on
+    const nextState = this.state.toggleState == 1 ? State.dark : State.light
     MessageHubControllers.Toggle(nextState);
-    this.setState(() => ({ state: nextState  }));
+    this.setState(() => ({ toggleState: nextState  }));
   }
 
   render (){
-    const { state } = this.state;
+    const { toggleState } = this.state;
     return (
       <Fragment>
-        <Switch state={state} onClick={this.handleToggle}>
-          <span className={state ? 'slider off' : 'slider on'}></span>
+        <Switch state={toggleState} onClick={this.handleToggle}>
+          <span className={toggleState ? 'slider off' : 'slider on'}></span>
         </Switch>
       </Fragment>
     )
