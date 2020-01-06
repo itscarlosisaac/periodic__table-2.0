@@ -23,7 +23,22 @@ const DetailsComponent: any = styled.aside`
 const Details = (props: any) => {
   const [ currentElement, setCurrentElement ] = useState();
   const getCurrentElement = (data: any) => {
-    setCurrentElement(data);
+    setCurrentElement(handleData(data));
+  }
+
+  const handleData = (data: any) :any => {
+    const { name, symbol, summary, spectral_img, number } = data;
+    delete data.xpos
+    delete data.ypos
+    delete data.name
+    delete data.symbol
+    delete data.summary
+    delete data.number
+    delete data.spectral_img
+    return {
+      details: {name, symbol, summary, spectral_img, number },
+      iterables: {...data}
+    }
   }
 
   useEffect( () => {
@@ -32,12 +47,35 @@ const Details = (props: any) => {
 
   const close = () => { setCurrentElement(undefined) }
 
-  if ( currentElement == undefined ) return <DetailsComponent className="empty"></DetailsComponent>;
+  const removeUnderScore = (e:string) : string => {
+    return e.replace(/_/g, ' ');
+  }
+
+  if ( currentElement == undefined )
+    return <DetailsComponent className="empty"></DetailsComponent>;
 
   return  (
     <DetailsComponent>
-      <div onClick={close}>CLOSE</div>
-      These are the details2 {currentElement.name}
+      <header>
+        <div onClick={close}>CLOSE</div>
+        <div>{currentElement.details.symbol} <small>{currentElement.details.number}</small></div>
+        <div>{currentElement.details.name}</div>
+      </header>
+      <article>
+        <p>{currentElement.details.summary}</p>
+      </article>
+      <article>
+        {
+          Object.keys(currentElement.iterables).map((el: any) => {
+            return (
+              <div key={el}>
+                <span>{removeUnderScore(el)}: </span>
+                <span>{currentElement.iterables[el]}</span>
+              </div>
+            )
+          })
+        }
+      </article>
     </DetailsComponent>
   )
 }

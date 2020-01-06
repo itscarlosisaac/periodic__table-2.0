@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const PeriodicTableComponent: any = styled.div`
     max-width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
     position: relative;
 `
