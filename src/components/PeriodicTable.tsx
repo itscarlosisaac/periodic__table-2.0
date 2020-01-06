@@ -12,7 +12,6 @@ const PeriodicTable = (props: any) => {
     }
 
     useEffect( () => {
-        console.log("RE- Render from P-Table")
         MessageHub.addListener(EventType.Toggle, handleThemeToggle);
     }, [])
 
