@@ -11,12 +11,12 @@ export const ElementShowBox = styled.div`
   grid-column-end: 13;
 `
 
-export default class ShowBox extends Component {
-  render() {
-    return (
-      <ElementShowBox>
-        SHOW BOX
-      </ElementShowBox>
-    )
-  }
+const ShowBox = (props: any) => {
+  return (
+    <ElementShowBox>
+      SHOW BOX
+    </ElementShowBox>
+  )
 }
+
+export default ShowBox;
