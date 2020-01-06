@@ -1,8 +1,15 @@
-import React, {Component, Fragment, useState, useEffect} from "react";
+import React, { useState, useEffect} from "react";
 import Header from './molecules/Header';
 import Table from './molecules/Table';
 import Details from './molecules/Details';
 import { MessageHub, EventType } from '../utils/MessageHub';
+import styled from 'styled-components';
+
+const PeriodicTableComponent: any = styled.div`
+    max-width: 100vw;
+    overflow: hidden;
+    position: relative;
+`
 
 const PeriodicTable = (props: any) => {
     const [ theme, setTheme ] = useState(1);
@@ -16,11 +23,11 @@ const PeriodicTable = (props: any) => {
     }, [])
 
     return (
-        <Fragment>
+        <PeriodicTableComponent>
             <Details />
             <Header theme={theme} />
             <Table theme={theme} />
-        </Fragment>
+        </PeriodicTableComponent>
     )
 }
 
