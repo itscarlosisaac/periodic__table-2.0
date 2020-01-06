@@ -7,7 +7,8 @@ import EventEmitter from 'events';
 export const MessageHub = new EventEmitter();
 
 export enum EventType {
-  Toggle = 'toggle'
+  Toggle = 'toggle',
+  Details = 'show-details'
 }
 
 export interface IMessage {
@@ -21,5 +22,9 @@ export interface IToogleMessage extends IMessage {
 export class MessageHubControllers {
   static Toggle(data: any) {
     MessageHub.emit(EventType.Toggle, data)
+  }
+
+  static ShowDetails(data: any) {
+    MessageHub.emit(EventType.Details, data);
   }
 }
