@@ -18,8 +18,7 @@ export const Grid = styled.div`
 const ElementStack = ( props: any) => {
   const [ elements, phases, metals, nonmetals, isLoading ] = useParseElements(APIURL, []);
   const [ useElements, setElements ] = useState();
-  const [ usePhaseFiltered, setPhaseFiltered ] = useState([]);
-  const [ useCategoryFiltered, setCategoryFiltered ] = useState([]);
+  const [ useFilters, setFilters ] = useState([]);
 
   useEffect( () => {
     setElements(elements);
@@ -29,40 +28,29 @@ const ElementStack = ( props: any) => {
     MessageHubControllers.ShowDetails(useElements[index])
   }
 
-  const FilterByPhase  = (phase: string ) => {
-    const filters : string[] = usePhaseFiltered;
-    if( !filters.includes(phase) ) {
-      filters.push(phase)
-    } else {
-      filters.splice(filters.indexOf(phase), 1);
-    }
-    setPhaseFiltered(filters);
+  const FilterElements = (type: string, filter: string ) => {
+    const filters: any = useFilters;
+    !filters.includes(filter) ? filters.push(filter) : filters.splice(filters.indexOf(filter), 1);
 
-    if ( usePhaseFiltered.length == 0 ) return setElements(elements);
+    setFilters(filters);
 
-    const newElements = elements.filter( (element: any) => usePhaseFiltered.includes(element.phase.toLowerCase()))
-    console.log(newElements)
+    if ( useFilters.length == 0  ) return setElements(elements);
+
+    let newElements = elements.filter( (element: any) => useFilters.includes(element.category.toLowerCase()) || useFilters.includes(element.phase.toLowerCase()));
     setElements(newElements);
+  }
+
+  const FilterByPhase  = (phase: string ) => {
+    FilterElements('phase', phase);
   }
 
   const filterByCategory = ( cat: string ) => {
-    const filters :string[] = useCategoryFiltered;
-    !filters.includes(cat) ? filters.push(cat) : filters.splice(filters.indexOf(cat), 1);
-    setCategoryFiltered(filters);
-
-
-
-    let newElements = elements.filter( (element: any) => useCategoryFiltered.includes(element.category.toLowerCase()));
-    setElements(newElements);
+    FilterElements('category', cat);
   }
-
-
-
 
   if ( useElements == undefined) {
     return (  <div> Loading... </div> )
   }else {
-    console.log(usePhaseFiltered, useCategoryFiltered);
     return (
       <Grid>
         { useElements.map((e: any, index: number) => {
