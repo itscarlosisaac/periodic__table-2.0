@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components';
-
+import PhaseFilter from '../atoms/PhaseFilter';
 
 export const ElementShowBox = styled.div`
   background: yellow;
@@ -14,7 +14,7 @@ export const ElementShowBox = styled.div`
 const ShowBox = (props: any) => {
   return (
     <ElementShowBox>
-      SHOW BOX
+      <PhaseFilter actions={props.actions} phases={props.phases} types={props.types} />
     </ElementShowBox>
   )
 }

@@ -8,7 +8,9 @@ export const MessageHub = new EventEmitter();
 
 export enum EventType {
   Toggle = 'toggle',
-  Details = 'show-details'
+  Details = 'show-details',
+  FilterByPhase = 'filter-by-phase',
+  FilterByType = 'filter-by-type',
 }
 
 export interface IMessage {
@@ -26,5 +28,13 @@ export class MessageHubControllers {
 
   static ShowDetails(data: any) {
     MessageHub.emit(EventType.Details, data);
+  }
+
+  static FilterByPhase(data: any ){
+    MessageHub.emit(EventType.FilterByPhase, data);
+  }
+
+  static FilterByType(data: any){
+    MessageHub.emit(EventType.FilterByType, data);
   }
 }

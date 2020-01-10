@@ -23,21 +23,25 @@ const DetailsComponent: any = styled.aside`
 const Details = (props: any) => {
   const [ currentElement, setCurrentElement ] = useState();
   const getCurrentElement = (data: any) => {
+    console.log(data)
     setCurrentElement(handleData(data));
   }
 
   const handleData = (data: any) :any => {
-    const { name, symbol, summary, spectral_img, number } = data;
-    delete data.xpos
-    delete data.ypos
-    delete data.name
-    delete data.symbol
-    delete data.summary
-    delete data.number
-    delete data.spectral_img
+    const { name, symbol, summary, spectral_img, number, source } = data;
+    const iterable = {...data};
+    delete iterable.xpos
+    delete iterable.ypos
+    delete iterable.name
+    delete iterable.symbol
+    delete iterable.summary
+    delete iterable.number
+    delete iterable.spectral_img
+    delete iterable.source
     return {
       details: {name, symbol, summary, spectral_img, number },
-      iterables: {...data}
+      iterables: {...iterable},
+      xref: source,
     }
   }
 
@@ -49,6 +53,13 @@ const Details = (props: any) => {
 
   const removeUnderScore = (e:string) : string => {
     return e.replace(/_/g, ' ');
+  }
+
+  const checkData = (e: any ): string => {
+    if ( e instanceof Array) {
+      return `[${e.join(', ')}]`;
+    }
+    return e;
   }
 
   if ( currentElement == undefined )
@@ -66,16 +77,26 @@ const Details = (props: any) => {
       </article>
       <article>
         {
-          Object.keys(currentElement.iterables).map((el: any) => {
+          Object.keys(currentElement.iterables).map((el: any, index: number) => {
             return (
-              <div key={el}>
+              <div
+                key={el}
+                className={index % 2 == 0 ? 'odd' : 'even'}
+                hidden={currentElement.iterables[el] == null}>
                 <span>{removeUnderScore(el)}: </span>
-                <span>{currentElement.iterables[el]}</span>
+                <span>
+                  { checkData(currentElement.iterables[el]) }
+                </span>
               </div>
             )
           })
         }
       </article>
+      <a
+        hidden={currentElement.xref == null}
+        target="_blank"
+        href={currentElement.xref}> Learn More
+      </a>
     </DetailsComponent>
   )
 }
