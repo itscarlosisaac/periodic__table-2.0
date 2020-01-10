@@ -11,6 +11,7 @@ export enum EventType {
   Details = 'show-details',
   FilterByPhase = 'filter-by-phase',
   FilterByType = 'filter-by-type',
+  ShowElementDisplay = 'show-element-display'
 }
 
 export interface IMessage {
@@ -28,6 +29,10 @@ export class MessageHubControllers {
 
   static ShowDetails(data: any) {
     MessageHub.emit(EventType.Details, data);
+  }
+
+  static ShowElementOnDisplay(data: any){
+    MessageHub.emit(EventType.ShowElementDisplay, data)
   }
 
   static FilterByPhase(data: any ){

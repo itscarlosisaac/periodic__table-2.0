@@ -28,6 +28,10 @@ const ElementStack = ( props: any) => {
     MessageHubControllers.ShowDetails(useElements[index])
   }
 
+  const handleMouseOver = (index: number) => {
+    MessageHubControllers.ShowElementOnDisplay(useElements[index]);
+  }
+
   const FilterElements = (type: string, filter: string ) => {
     const filters: any = useFilters;
     !filters.includes(filter) ? filters.push(filter) : filters.splice(filters.indexOf(filter), 1);
@@ -38,13 +42,14 @@ const ElementStack = ( props: any) => {
 
     let newElements = elements.filter( (element: any) => useFilters.includes(element.category.toLowerCase()) || useFilters.includes(element.phase.toLowerCase()));
     setElements(newElements);
+    console.log(filters)
   }
 
   const FilterByPhase  = (phase: string ) => {
     FilterElements('phase', phase);
   }
 
-  const filterByCategory = ( cat: string ) => {
+  const FilterByCategory = ( cat: string ) => {
     FilterElements('category', cat);
   }
 
@@ -56,6 +61,7 @@ const ElementStack = ( props: any) => {
         { useElements.map((e: any, index: number) => {
           return (
             <Element
+              onMouseOver={() => handleMouseOver(index)}
               onClick={ () => {handleClick(index)}}
               data={e}
               key={`${index}-element`}
@@ -64,9 +70,9 @@ const ElementStack = ( props: any) => {
           );
         } ) }
         <ShowBox
-          actions={{FilterByPhase, filterByCategory}}
+          actions={{FilterByPhase, FilterByCategory}}
           phases={phases}
-          types={[metals, nonmetals]}/>
+          categories={[metals, nonmetals]}/>
       </Grid>
     )
   }

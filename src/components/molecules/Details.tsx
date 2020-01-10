@@ -1,5 +1,5 @@
-import React, {Component, Fragment, useState, useEffect} from "react";
-import { MessageHub, EventType, MessageHubControllers } from '../../utils/MessageHub';
+import React, { useState, useEffect} from "react";
+import { MessageHub, EventType } from '../../utils/MessageHub';
 import styled from 'styled-components';
 
 const DetailsComponent: any = styled.aside`
