@@ -19,7 +19,7 @@ const ElementStack = ( props: any) => {
   const [ elements, phases, metals, nonmetals, isLoading ] = useParseElements(APIURL, []);
   const [ useElements, setElements ] = useState();
   const [ usePhaseFiltered, setPhaseFiltered ] = useState([]);
-  const [ useTypeFilter, setTypeFilter ] = useState();
+  const [ useCategoryFiltered, setCategoryFiltered ] = useState([]);
 
   useEffect( () => {
     setElements(elements);
@@ -37,7 +37,7 @@ const ElementStack = ( props: any) => {
       filters.splice(filters.indexOf(phase), 1);
     }
     setPhaseFiltered(filters);
-    
+
     if ( usePhaseFiltered.length == 0 ) return setElements(elements);
 
     const newElements = elements.filter( (element: any) => usePhaseFiltered.includes(element.phase.toLowerCase()))
@@ -45,9 +45,24 @@ const ElementStack = ( props: any) => {
     setElements(newElements);
   }
 
+  const filterByCategory = ( cat: string ) => {
+    const filters :string[] = useCategoryFiltered;
+    !filters.includes(cat) ? filters.push(cat) : filters.splice(filters.indexOf(cat), 1);
+    setCategoryFiltered(filters);
+
+
+
+    let newElements = elements.filter( (element: any) => useCategoryFiltered.includes(element.category.toLowerCase()));
+    setElements(newElements);
+  }
+
+
+
+
   if ( useElements == undefined) {
     return (  <div> Loading... </div> )
   }else {
+    console.log(usePhaseFiltered, useCategoryFiltered);
     return (
       <Grid>
         { useElements.map((e: any, index: number) => {
@@ -61,7 +76,7 @@ const ElementStack = ( props: any) => {
           );
         } ) }
         <ShowBox
-          actions={{FilterByPhase}}
+          actions={{FilterByPhase, filterByCategory}}
           phases={phases}
           types={[metals, nonmetals]}/>
       </Grid>
